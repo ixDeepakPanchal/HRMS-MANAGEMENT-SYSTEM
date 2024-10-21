@@ -6,11 +6,18 @@ export const customData: Employee[] = [
     about: {
       role: "human resource",
       service: "manager",
+<<<<<<< HEAD
       phone: 9999911111,
       office: "Hydrabad",
+=======
+      phone: "9999911111",
+      availability: { from: "8:00 AM", to: "5:30 PM" },
+      office: "Hydrabad"
+>>>>>>> d84fcbf788d1b0592b9459f11588a18130dfd5c7
     },
 
     basicInfo: {
+<<<<<<< HEAD
       firstName: "Human",
       lastName: "Resource",
     },
@@ -23,6 +30,22 @@ export const customData: Employee[] = [
     personal: {
       mobileNo: 9999911111,
       dob: "2001-02-24",
+=======
+    
+      firstName: "Human",
+
+      lastName: "Resource",
+    },
+    work: {
+      department: "Management",
+      reportingTo: "admin@mail.com",
+      title: "HR",
+      dateofJoin: "09-10-2024",
+    },
+    personal: {
+      mobileNo: 9999911111,
+      dob: "30-12-2004",
+>>>>>>> d84fcbf788d1b0592b9459f11588a18130dfd5c7
       gender: "female",
 
       marriageStatus: "unmarried",
@@ -31,6 +54,7 @@ export const customData: Employee[] = [
 
     profileImages: {},
   },
+<<<<<<< HEAD
   {
     authInfo: {
       id: "deepak-123",
@@ -65,4 +89,6 @@ export const customData: Employee[] = [
 
     profileImages: {},
   },
+=======
+>>>>>>> d84fcbf788d1b0592b9459f11588a18130dfd5c7
 ];

@@ -8,6 +8,7 @@ import { FiCheckCircle } from "react-icons/fi";
 import { AiOutlineClockCircle } from "react-icons/ai";
 import { setTaskStatus } from "../../store/AuthSlice";
 import { useNavigate } from "react-router-dom";
+import PerformanceOverView from "./PerformanceOverview";
 
 const HomePage = () => {
   const { Step } = Steps;
@@ -17,9 +18,11 @@ const HomePage = () => {
   const myInfo = useSelector(
     (state: { auth: { authUser: Employee } }) => state.auth.authUser
   );
+
   const taskData = useSelector(
     (state: { auth: { taskData: TaskDataType[] } }) => state.auth.taskData
   ).filter((task) => task.assignTo === myInfo.authInfo.email);
+
   const leaveData = useSelector(
     (state: { auth: { leaveData: LeaveData[] } }) => state.auth.leaveData
   ).filter(
@@ -56,7 +59,7 @@ const HomePage = () => {
         <div className="p-5 bg-white shadow-lg rounded-lg">
           <div className="border-l-4 border-yellow-500 p-2">
             <div className="flex items-center justify-between text-gray-800 font-bold h-8">
-             Total Leave
+              Total Leave
               <IoMdTime size={32} className="text-yellow-500 " />
             </div>
             <div className="text-3xl text-yellow-600 font-bold">
@@ -96,15 +99,14 @@ const HomePage = () => {
               <FaExclamationCircle size={28} className="text-orange-500 " />
             </div>
             <div className="text-3xl text-orange-600 font-bold">
-              {pendingTasks? `${pendingTasks} Tasks` : "0 Task"} 
+              {pendingTasks ? `${pendingTasks} Tasks` : "0 Task"}
             </div>
           </div>
         </div>
       </div>
-
       <div className="grid grid-cols-1 md:grid-cols-2  gap-3">
         <div className="p-4 rounded-xl overflow-y-auto h-[300px] bg-white shadow-lg">
-          <h2 className="text-lg font-extrabold text-blue-700 mb-4">
+          <h2 className="text-lg font-extrabold text-[#7b2cbf] mb-4">
             Tasks for Today
           </h2>
           {taskData?.length ? (
@@ -120,9 +122,11 @@ const HomePage = () => {
                     <div className="font-bold text-gray-700 text-lg flex justify-between gap-5 w-full">
                       {event.title}{" "}
                       <input
+                        className={`${!event.isCompleted && "cursor-pointer"}`}
                         type="checkbox"
+                        disabled={event.isCompleted}
                         checked={event.isCompleted}
-                        onClick={() => handleTaskStatus(event)}
+                        onChange={() => handleTaskStatus(event)}
                       />
                     </div>
                   }
@@ -152,7 +156,10 @@ const HomePage = () => {
           )}
         </div>
 
-        <div className="h-[300px] bg-white rounded-xl shadow-lg ">
+        <div className=" p-4 h-[300px] bg-white rounded-xl shadow-lg ">
+          <h2 className="text-lg font-extrabold text-yellow-700 mb-4">
+            Tasks Overview
+          </h2>
           {taskData.length ? (
             <Chart
               options={{
@@ -186,7 +193,7 @@ const HomePage = () => {
               height={"100%"}
             />
           ) : (
-            <div className="flex justify-center items-center h-full ">
+            <div className="flex justify-center items-center  ">
               <Empty
                 description="No tasks for today!"
                 image={Empty.PRESENTED_IMAGE_SIMPLE}
@@ -195,6 +202,7 @@ const HomePage = () => {
           )}
         </div>
       </div>
+      <PerformanceOverView myInfo={myInfo} />
     </div>
   );
 };

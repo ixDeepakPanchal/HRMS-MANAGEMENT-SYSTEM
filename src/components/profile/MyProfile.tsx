@@ -8,23 +8,30 @@ import { LiaUserEditSolid } from "react-icons/lia";
 import { useEffect, useRef, useState } from "react";
 import { Employee } from "../types/employeeDataType";
 import { editImage } from "../../store/AuthSlice";
-import AddEmployeeForm from "../edit/AddEmployeeForm";
 import LoadingPage from "../loading/LoadingPage";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function MyProfile() {
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const uploadFileInput = useRef<HTMLInputElement>(null);
-  const [showEdit, setShowEdit] = useState<string | undefined>();
 
   const dispatch = useDispatch();
 
-  const myInfo = useSelector(
+  let myInfo = useSelector(
     (state: { auth: { authUser: Employee } }) => state.auth.authUser
   );
+  const users = useSelector(
+    (state: { auth: { allEmployees: Employee[] } }) => state.auth.allEmployees
+  ).filter(data => data.authInfo.email === myInfo.authInfo.email);
+
+  myInfo = users[0]
 
   useEffect(() => {
-    setLoading(false);
-  }, [myInfo]);
+    if (myInfo)
+
+      setLoading(false);
+  }, [myInfo, users]);
   const handleImageChange = () => {
     if (uploadFileInput.current) {
       uploadFileInput.current.click();
@@ -49,13 +56,11 @@ function MyProfile() {
     dispatch(editImage({ type: "REMOVE_MY_IMAGE" }));
   };
 
-  return showEdit ? (
-    <AddEmployeeForm setBackButton={setShowEdit} editData={myInfo} />
-  ) : loading ? (
+  return loading ? (
     <LoadingPage />
   ) : (
     <div className="h-full w-full flex flex-col ">
-      <div className="background-bg bg-local relative  h-[12rem] flex flex-col justify-center items-center p-4">
+      <div className="background-bg bg-local relative  h-[12rem] flex flex-col justify-center items-center p-4" >
         <Popover
           placement="bottom"
           content={
@@ -97,9 +102,11 @@ function MyProfile() {
         </Popover>
         <div
           className="absolute right-0 bottom-0 text-white font-bold flex justify-end items-center px-5 hover:cursor-pointer"
-          onClick={() => {
-            setShowEdit("show");
-          }}
+          onClick={() =>
+            navigate("/myprofile/edit", {
+              state: { id: myInfo.authInfo.email },
+            })
+          }
         >
           <LiaUserEditSolid size={20} className="mr-2  rounded-full " />
           Edit Details

@@ -3,29 +3,84 @@ import { useSelector } from "react-redux";
 import { lazy, Suspense } from "react";
 import { Employee } from "./components/types/employeeDataType";
 import { Navigate, Route, Routes } from "react-router-dom";
+import LoadingPage from "./components/loading/LoadingPage";
+import AddEmployeeForm from "./components/edit/AddEmployeeForm";
+import HrEventForm from "./components/edit/HrEventForm";
 
+const EmployeeProfile = lazy(
+  () => import("./components/profile/EmployeeProfile")
+);
+const PerformanceReport = lazy(
+  () => import("./components/profile/PerformanceReport")
+);
+const CalendarAttandance = lazy(
+  () => import("./components/attandance/CalendarAttandance")
+);
+const MyProfile = lazy(() => import("./components/profile/MyProfile"));
+const MyTask = lazy(() => import("./components/task/MyTask"));
+const FutureEvents = lazy(() => import("./components/task/FutureEvents"));
+const LeaveProfile = lazy(() => import("./components/schedule/LeaveProfile"));
+const LeaveSchedule = lazy(() => import("./components/schedule/LeaveSchedule"));
 const EmployeesDetail = lazy(
   () => import("./components/profile/EmployeesDetail")
 );
-const Dashboard = lazy(() => import("./components/home/Dashboard"));
+const SideRoute = lazy(() => import("./components/home/SideRoute"));
 const LoginPage = lazy(() => import("./components/login/LoginPage"));
-const LeaveProfile = lazy(() => import("./components/schedule/LeaveProfile"));
-const LeaveShedule = lazy(() => import("./components/schedule/LeaveSchedule"));
 const AdminPage = lazy(() => import("./components/home/AdminPage"));
-const MyTask = lazy(() => import("./components/task/MyTask"));
-const FutureEvents = lazy(() => import("./components/task/FutureEvents"));
-
-import LoadingPage from "./components/loading/LoadingPage";
-import CalendarAttandance from "./components/attandance/CalendarAttandance";
-
-
 const HomePage = lazy(() => import("./components/home/HomePage"));
-const MyProfile = lazy(() => import("./components/profile/MyProfile"));
 
 function App() {
   const authUser = useSelector(
     (state: { auth: { authUser: Employee } }) => state.auth.authUser
   );
+
+  const isAdmin = authUser?.authInfo.email === "admin@mail.com";
+
+  const routes = [
+    { path: "/home", element: isAdmin ? <AdminPage /> : <HomePage /> },
+    {
+      path: "/home/addEmployee",
+      element: isAdmin ? <AddEmployeeForm /> : <HomePage />,
+    },
+    {
+      path: "/home/addEvent",
+      element: isAdmin ? <HrEventForm /> : <HomePage />,
+    },
+    {
+      path: "/home/addFutureEvent",
+      element: isAdmin ? <HrEventForm /> : <HomePage />,
+    },
+    { path: "/leave", element: <LeaveProfile /> },
+    { path: "/leavetrack", element: <LeaveSchedule /> },
+    { path: "/tasks", element: <MyTask /> },
+    { path: "/plans", element: <FutureEvents /> },
+    { path: "/home/calendar", element: <CalendarAttandance /> },
+    { path: "/myprofile", element: <MyProfile /> },
+    { path: "/myprofile/edit", element: <AddEmployeeForm /> },
+    { path: "/employees", element: <EmployeesDetail /> },
+    { path: "/employees/:id", element: <EmployeeProfile /> },
+    {
+      path: "/employees/:id/edit",
+      element: isAdmin ? <AddEmployeeForm /> : <Navigate to="/employees" />,
+    },
+    {
+      path: "/employees/:id/performance",
+      element: <EmployeeProfile />,
+    },
+    {
+      path: "/performance",
+      element: isAdmin ? <PerformanceReport /> : <Navigate to="/home" />,
+    },
+    {
+      path: "/performance/:id",
+      element: isAdmin ? <PerformanceReport /> : <Navigate to="/home" />,
+    },
+  ];
+
+  const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
+
+    return !!authUser ? children : <Navigate to="/" />;
+  };
 
   return (
     <div className="min-h-screen min-w-screen">
@@ -34,35 +89,22 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={
-              authUser ? <Navigate to={"/home"} /> : <LoginPage></LoginPage>
-            }
-          />
-          <Route
-            path="/home"
-            element={
-              authUser ? (
-                <Dashboard>
-                  {authUser?.authInfo.email === "admin@mail.com" ? (
-                    <AdminPage />
-                  ) : (
-                    <HomePage />
-                  )}
-                </Dashboard>
-              ) : (
-                <Navigate to={"/"} />
-              )
-            }
+            element={!!authUser ? <SideRoute></SideRoute> : <LoginPage />}
           >
-            <Route path="/home/myprofile" element={<MyProfile />} />
-            <Route path="/home/employees" element={<EmployeesDetail />} />
-            <Route path="/home/leave" element={<LeaveProfile />} />
-            <Route path="/home/schedule" element={<LeaveShedule />} />
-            <Route path="/home/tasks" element={<MyTask />} />
-            <Route path="/home/plans" element={<FutureEvents />} />
-            <Route path="/home/calendar" element={<CalendarAttandance />} />
-
+            <Route path="/" element={<Navigate to={authUser ? "/home" : "/"} />} />
+            {routes?.map((items, index) => (
+              <Route
+                key={index}
+                path={items.path}
+                element={
+                  <Suspense fallback={<LoadingPage />}>
+                    <ProtectedRoute>{items.element}</ProtectedRoute>
+                  </Suspense>
+                }
+              />
+            ))}
           </Route>
+
           <Route path="/*" element={<div>Page not found</div>} />
         </Routes>
       </Suspense>

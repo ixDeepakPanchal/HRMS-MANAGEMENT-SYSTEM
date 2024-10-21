@@ -2,35 +2,30 @@ import { Employee } from "../components/types/employeeDataType";
 
 export const customData: Employee[] = [
   {
-    authInfo: { id: "hr-admin", email: "admin@mail.com", password: "admin" },
+    authInfo: { id: "hr-admin", email: "admin@mail.com", password: "admin123" },
     about: {
       role: "human resource",
-      service: "middleware",
-      phone: "7297095896",
-      availability: { from: "", to: "5:30 PM" },
+      service: "manager",
+      phone: 9999911111,
       office: "Hydrabad",
     },
 
-    reportedBy: [],
     basicInfo: {
-    
-      firstName: "",
-
-      lastName: "",
+      firstName: "Human",
+      lastName: "Resource",
     },
     work: {
-      department: "",
-      reportingTo: "",
-
-      title: "",
-      dateofJoin: "",
+      department: "MANAGEMENT",
+      reportingTo: "admin@mail.com",
+      title: "HR",
+      dateofJoin: "2023-01-10",
     },
     personal: {
-      mobileNo: 7297095896,
-      dob: "30-12-2004",
-      gender: "male",
+      mobileNo: 9999911111,
+      dob: "2001-02-24",
+      gender: "female",
 
-      marigeStatus: "unmarid",
+      marriageStatus: "unmarried",
       address: "bhilwara",
     },
 
@@ -40,221 +35,34 @@ export const customData: Employee[] = [
     authInfo: {
       id: "deepak-123",
       email: "deepak@mail.com",
-      password: "deepak",
+      password: "deepak123",
     },
     about: {
       role: "software engineer",
       service: "middleware",
-      phone: "7297095896",
-      availability: { from: "", to: "5:30 PM" },
+      phone: 7297095896,
       office: "Hydrabad",
     },
 
-    reportedBy: [],
-
     basicInfo: {
-
       firstName: "Deepak",
       lastName: "Panchal",
-
     },
     work: {
       department: "MOEI",
-      reportingTo: "shubham@mail.com",
+      reportingTo: "admin@mail.com",
 
       title: "Employee",
-      dateofJoin: "22-07-24",
+      dateofJoin: "2024-09-27",
     },
     personal: {
       mobileNo: 7297095896,
-      dob: "30-12-2004",
+      dob: "2004-12-30",
       gender: "male",
-
-      marigeStatus: "unmarid",
+      marriageStatus: "unmarried",
       address: "bhilwara",
     },
 
-    profileImages: {},
-  },
-  {
-    authInfo: { id: "ansul-123", email: "ansul@mail.com", password: "ansul" },
-    about: {
-      role: "",
-      service: "",
-      phone: "",
-      availability: { from: "", to: "" },
-    },
-
-    reportedBy: [],
-    basicInfo: {
-    
-      firstName: "",
-
-      lastName: "",
-    },
-    work: {
-      department: "",
-      reportingTo: "",
-
-      title: "",
-      dateofJoin: "",
-    },
-    personal: {
-      mobileNo: 7297095896,
-      dob: "30-12-2004",
-      gender: "male",
-
-      marigeStatus: "unmarid",
-      address: "bhilwara",
-    },
-
-    profileImages: {},
-  },
-  {
-    authInfo: { id: "anksh-123", email: "aksh@mail.com", password: "aksh" },
-
-    about: {
-      role: "Web method",
-      service: "",
-      phone: "",
-      availability: { from: "", to: "" },
-    },
-
-    reportedBy: [],
-    basicInfo: {
-    
-      firstName: "",
-
-      lastName: "",
-    },
-    work: {
-      department: "",
-      reportingTo: "",
-
-      title: "",
-      dateofJoin: "",
-    },
-    personal: {
-      mobileNo: 7297095896,
-      dob: "30-12-2004",
-      gender: "male",
-
-      marigeStatus: "unmarid",
-      address: "bhilwara",
-    },
-
-    profileImages: {},
-  },
-  {
-    authInfo: {
-      id: "shubham-123",
-      email: "shubham@mail.com",
-      password: "shubham",
-    },
-
-    about: {
-      role: "UI Developer",
-      service: "",
-      phone: "",
-      availability: { from: "", to: "" },
-    },
-
-    reportedBy: [],
-    basicInfo: {
-    
-      firstName: "",
-
-      lastName: "",
-    },
-    work: {
-      department: "",
-      reportingTo: "",
-
-      title: "",
-      dateofJoin: "",
-    },
-    personal: {
-      mobileNo: 7297095896,
-      dob: "30-12-2004",
-      gender: "male",
-
-      marigeStatus: "unmarid",
-      address: "bhilwara",
-    },
-
-    profileImages: {},
-  },
-  {
-    authInfo: { id: "sapna-123", email: "sapna@mail.com", password: "sapna" },
-
-    about: {
-      role: "",
-      service: "",
-      phone: "",
-      availability: { from: "", to: "" },
-    },
-
-    reportedBy: [],
-    basicInfo: {
-    
-      firstName: "",
-
-      lastName: "",
-    },
-    work: {
-      department: "",
-      reportingTo: "",
-
-      title: "",
-      dateofJoin: "",
-    },
-    personal: {
-      mobileNo: 7297095896,
-      dob: "30-12-2004",
-      gender: "male",
-
-      marigeStatus: "unmarid",
-      address: "bhilwara",
-    },
-
-    profileImages: {},
-  },
-  {
-    authInfo: {
-      id: "priyanshi-123",
-      email: "priyanshi@mail.com",
-      password: "priyanshi",
-    },
-
-    about: {
-      role: "",
-      service: "",
-      phone: "",
-      availability: { from: "", to: "" },
-    },
-
-    reportedBy: [],
-    basicInfo: {
-    
-      firstName: "",
-
-      lastName: "",
-    },
-    work: {
-      department: "",
-      reportingTo: "",
-
-      title: "",
-      dateofJoin: "",
-    },
-    personal: {
-      mobileNo: 7297095896,
-      dob: "30-12-2004",
-      gender: "male",
-
-      marigeStatus: "unmarid",
-      address: "bhilwara",
-    },
     profileImages: {},
   },
 ];

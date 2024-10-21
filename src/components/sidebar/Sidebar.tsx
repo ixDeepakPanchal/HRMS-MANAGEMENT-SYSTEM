@@ -7,11 +7,13 @@ import { ImList2 } from "react-icons/im";
 import { BiTask } from "react-icons/bi";
 import { GoLightBulb } from "react-icons/go";
 import { RiCalendarScheduleLine } from "react-icons/ri";
+import { GrDocumentPerformance } from "react-icons/gr";
 import { TbLogout } from "react-icons/tb";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../store/AuthSlice";
 import ShowModel from "../model/ShowModel";
-import {  Tooltip } from "antd";
+import { Tooltip } from "antd";
+import { Employee } from "../types/employeeDataType";
 
 type SidebarData = {
   icon: ReactNode;
@@ -20,6 +22,11 @@ type SidebarData = {
 };
 
 function Sidebar() {
+  const myInfo = useSelector(
+    (state: { auth: { authUser: Employee } }) => state.auth.authUser
+  );
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const location = useLocation();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,37 +38,45 @@ function Sidebar() {
   const handleOk = () => {
     dispatch(logoutUser());
     setIsModalOpen(false);
+    navigate("/");
   };
 
   const handleCancel = () => {
     setIsModalOpen(false);
   };
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const iconsData: SidebarData[] = [
     { icon: <LiaHomeSolid size={24} />, link: "/home", title: "Home" },
     {
       icon: <BsPersonSquare size={20} />,
-      link: "/home/myprofile",
+      link: "/myprofile",
       title: "My Profile",
     },
+
     {
       icon: <CgOrganisation size={24} />,
-      link: "/home/employees",
+      link: "/employees",
       title: "Employees Detail",
     },
-    { icon: <GoLightBulb size={24} />, link: "/home/plans", title: "Events" },
+
+    { icon: <GoLightBulb size={24} />, link: "/plans", title: "Events" },
     {
       icon: <RiCalendarScheduleLine size={24} />,
-      link: "/home/schedule",
+      link: "/leavetrack",
       title: "Leave Track",
     },
-    { icon: <ImList2 size={20} />, link: "/home/leave", title: "Leave" },
-    { icon: <BiTask size={24} />, link: "/home/tasks", title: "Task" },
+    { icon: <ImList2 size={20} />, link: "/leave", title: "Leave" },
+    { icon: <BiTask size={24} />, link: "/tasks", title: "Task" },
     { icon: <TbLogout size={24} />, link: "/logout", title: "Log Out" },
   ];
 
+  if (myInfo.authInfo.email === "admin@mail.com") {
+    iconsData.splice(3, 0, {
+      icon: <GrDocumentPerformance size={20} />,
+      link: "/performance",
+      title: "Performance Report",
+    });
+  }
   return (
     <div className="min-w-[48px] md:min-w-16 bg-blue-200 grid grid-cols-1 ">
       <ShowModel

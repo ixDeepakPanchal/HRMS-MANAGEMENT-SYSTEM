@@ -4,7 +4,7 @@ import LoadingPage from "../loading/LoadingPage";
 import { useSelector } from "react-redux";
 import { Employee, LeaveData } from "../types/employeeDataType";
 
-function LeaveShedule() {
+function LeaveSchedule() {
   const [loading, setLoading] = useState<boolean>(true);
   const leaveData = useSelector(
     (state: { auth: { leaveData: LeaveData[] } }) => state.auth.leaveData
@@ -31,4 +31,4 @@ function LeaveShedule() {
   );
 }
 
-export default LeaveShedule;
+export default LeaveSchedule;

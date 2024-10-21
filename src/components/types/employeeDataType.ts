@@ -6,10 +6,16 @@ export type AttendanceType = {
   checkIn?: string;
   checkOut?: string;
 };
-
-export type Availability = {
-  from?: string;
-  to?: string;
+export type PerformaceType = {
+  email: string;
+  date: string;
+  workQuality: number;
+  attandanceReview: number;
+  workEfficiency: number;
+  adherenceOfWork: number;
+  taskCompletion: number;
+  feedback?: string;
+  overallPerformance?: number;
 };
 
 export type AuthInfo = {
@@ -21,8 +27,7 @@ export type AuthInfo = {
 export type About = {
   role?: string;
   service?: string;
-  phone?: string;
-  availability?: Availability;
+  phone?: number;
   office?: string;
 };
 
@@ -32,18 +37,17 @@ export type BasicInfo = {
 };
 
 export type Work = {
-  department?: string;
-  reportingTo?: string;
-  title?: string;
-  dateofJoin?: string;
+  department: string;
+  reportingTo: string;
+  title: string;
+  dateofJoin: string;
 };
 
 export type Personal = {
   mobileNo?: number;
   dob?: string;
   gender?: string;
-  otherMail?: string;
-  marigeStatus?: string;
+  marriageStatus?: string;
   address?: string;
 };
 
@@ -73,6 +77,7 @@ export type TaskDataType = {
   taskId: number;
   assignTo?: string;
   assignBy?: string;
+  department?: string;
   title?: string;
   discription?: string;
   taskDate?: string;
@@ -83,19 +88,21 @@ export type TodayEventsType = {
   description: string;
   icon?: ReactNode;
   time: { start: string; end: string };
+  date: string;
 };
 export type hrEventsType = {
   title: string;
   date: string;
   description: string;
 };
+export type LeadReportData = { email: string; reportBy: string[] };
 
 export type Employee = {
   authInfo: AuthInfo;
   about?: About;
   reportedBy?: string[];
   basicInfo?: BasicInfo;
-  work?: Work;
+  work: Work;
   personal?: Personal;
   profileImages: ImageData;
 };

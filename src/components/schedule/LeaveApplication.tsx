@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { Employee } from "../types/employeeDataType";
 import { useDispatch } from "react-redux";
 import { addLeave } from "../../store/AuthSlice";
-import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 type LeaveFormType = {
   type: string;
   title: string;
@@ -13,8 +13,9 @@ interface prop {
 }
 
 function LeaveApplication({ myInfo }: prop) {
-  const { register, handleSubmit, reset } = useForm<LeaveFormType>();
-  const navigate = useNavigate();
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<LeaveFormType>({
+    mode: "all"
+  });
   const dispatch = useDispatch();
   const onsubmit = (data: LeaveFormType) => {
     const leave = {
@@ -24,7 +25,7 @@ function LeaveApplication({ myInfo }: prop) {
       status: "pending",
     };
     dispatch(addLeave(leave));
-    navigate("/home/schedule");
+    toast.success("Leave Apply Successfully");
     reset();
   };
 
@@ -41,11 +42,16 @@ function LeaveApplication({ myInfo }: prop) {
               Leave Reason <span className="text-red-500 font-semibold">*</span>
             </label>
             <input
-              {...register("title", { required: true })}
+              {...register("title", { required: "Please enter reason" })}
               type="text"
-              className="border border-gray-300 rounded-md p-2 mt-1 focus:ring-blue-500 focus:border-blue-500"
+              className="border border-gray-300 rounded-md p-2 mt-1 focus:outline-none focus:ring-blue-500 focus:border-blue-500 "
               placeholder="Enter reason"
             />
+            {errors.title && (
+              <p className="text-red-500 text-[12px]">
+                {errors.title.message}
+              </p>
+            )}
           </div>
 
           <div className="flex flex-col">
@@ -53,7 +59,7 @@ function LeaveApplication({ myInfo }: prop) {
               Type <span className="text-red-500 font-semibold">*</span>
             </label>
             <select
-              {...register("type", { required: true })}
+              {...register("type", { required: "Select leave type" })}
               className="border border-gray-300 rounded-md p-2 mt-1 focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="Casual Leave">Casual Leave</option>
@@ -62,6 +68,11 @@ function LeaveApplication({ myInfo }: prop) {
               <option value="Marriage Leave">Marriage Leave</option>
               <option value="Milestone Leave">Milestone Leave</option>
             </select>
+            {errors.type && (
+              <p className="text-red-500 text-[12px]">
+                {errors.type.message}
+              </p>
+            )}
           </div>
 
           <div className="flex flex-col">
@@ -69,10 +80,15 @@ function LeaveApplication({ myInfo }: prop) {
               Date <span className="text-red-500 font-semibold">*</span>
             </label>
             <input
-              {...register("date", { required: true })}
+              {...register("date", { required: "Please select a date" })}
               type="date"
-              className="border border-gray-300 rounded-md p-2 mt-1 focus:ring-blue-500 focus:border-blue-500"
+              className="border border-gray-300 rounded-md p-2 mt-1 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
             />
+            {errors.date && (
+              <p className="text-red-500 text-[12px]">
+                {errors.date.message}
+              </p>
+            )}
           </div>
         </div>
 

@@ -3,66 +3,9 @@
 @tailwind utilities;
 
 
-
-
-@keyframes bgImage {
-  0% {
-    background-image: url("./assets/cloudy-mountain.jpg");
-    background-size: 100vw 192px
-  }
-
-  30% {
-    background-image: url("./assets/moon-cloud.jpg");
-    background-size: 100vw 192px
-  }
-
-  60% {
-    background-image: url("./assets/pink-cloud.jpg");
-    background-size: 100vw 192px
-  }
-
-  100% {
-    background-image: url("./assets/thunderstrome-cloud.jpg");
-    background-size: 100vw 192px
-  }
-
-}
-
 .background-bg {
-  -webkit-animation: bgImage 20s infinite;
-  animation: bgImage 10s infinite;
-  -webkit-animation-direction: alternate;
-  animation-direction: alternate;
-}
-
-
-.loading-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: white;
-  position: relative;
-}
-
-.ball {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  position: absolute;
-  animation: rotate360 1.5s infinite linear;
-}
-
-.ball1 {
-  background-color: #00e5ff;
-  /* Light blue */
-  animation-delay: -0.75s;
-  /* Delay to offset rotation */
-}
-
-.ball2 {
-  background-color: #ff0049;
-  /* Red */
+  background-image: url("./assets/moon-cloud.jpg");
+  background-size: 100vw 192px
 }
 
 @keyframes rotate360 {
@@ -73,4 +16,11 @@
   100% {
     transform: rotate(360deg) translateX(30px);
   }
+}
+
+html,
+body {
+  overflow: hidden;
+  padding: 0px;
+  margin: 0px;
 }

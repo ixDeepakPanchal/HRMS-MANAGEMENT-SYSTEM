@@ -25,10 +25,10 @@ function CalendarAttandance() {
     setSelectedMode(mode);
   };
   const handleOnSelect = (
-    day: Dayjs,
+    _: Dayjs,
     info: { source: "year" | "month" | "date" | "customize" }
   ) => {
-    console.log(info, day);
+
     if (info.source === "month") {
       setSelectedMode("month");
     } else {
@@ -114,7 +114,7 @@ function CalendarAttandance() {
       (item) =>
         item.id === myInfo.authInfo.id &&
         item.date ===
-          `${currentDate.getFullYear()}/${currentDate.getMonth()}/${currentDate.getDate()}`
+        `${currentDate.getFullYear()}/${currentDate.getMonth()}/${currentDate.getDate()}`
     )[0];
     if (!attendance?.checkOut && attendance?.checkIn) {
       return true;
@@ -128,7 +128,7 @@ function CalendarAttandance() {
         (item) =>
           item.id === myInfo.authInfo.id &&
           item.date ===
-            `${currentDate.getFullYear()}/${currentDate.getMonth()}/${currentDate.getDate()}`
+          `${currentDate.getFullYear()}/${currentDate.getMonth()}/${currentDate.getDate()}`
       ).length === 0
     ) {
       return true;
@@ -148,11 +148,10 @@ function CalendarAttandance() {
           >
             <button
               disabled={!handleDisableCheckIn()}
-              className={` h-[50%]   flex justify-center items-center bg-gradient-to-r from-green-500 to-green-600 rounded-md shadow-md  ${
-                handleDisableCheckIn()
-                  ? "transition-transform transform  active:scale-90 active:shadow-lg  hover:from-green-400  hover:to-green-600  "
-                  : "from-green-400 to-green-400 cursor-not-allowed"
-              } px-2 `}
+              className={` h-[50%]   flex justify-center items-center bg-gradient-to-r from-green-500 to-green-600 rounded-md shadow-md  ${handleDisableCheckIn()
+                ? "transition-transform transform  active:scale-90 active:shadow-lg  hover:from-green-400  hover:to-green-600  "
+                : "from-green-400 to-green-400 cursor-not-allowed"
+                } px-2 `}
               onClick={() => {
                 handleDisableCheckIn() && handleCheckIn();
               }}
@@ -169,16 +168,15 @@ function CalendarAttandance() {
           >
             <button
               disabled={!handleDisableCheckOut()}
-              className={`text-white font-semibold h-[50%]  px-2 flex justify-center items-center bg-gradient-to-r  rounded-md shadow-md ${
-                handleDisableCheckOut()
-                  ? "transition-transform transform  active:scale-90 active:shadow-lg from-orange-500 to-orange-600 hover:from-orange-400  hover:to-orange-600"
-                  : "from-orange-400 to-orange-400 cursor-not-allowed"
-              }`}
+              className={`text-white font-semibold h-[50%]  px-2 flex justify-center items-center bg-gradient-to-r  rounded-md shadow-md ${handleDisableCheckOut()
+                ? "transition-transform transform  active:scale-90 active:shadow-lg from-orange-500 to-orange-600 hover:from-orange-400  hover:to-orange-600"
+                : "from-orange-400 to-orange-400 cursor-not-allowed"
+                }`}
               onClick={() => {
                 handleDisableCheckOut() && handleCheckOut();
               }}
             >
-               <span className="flex gap-1 text-white">
+              <span className="flex gap-1 text-white">
                 <span className="font-bold">Log Out</span>
                 <IoMdLogOut size={25} className="text-white" />
               </span>

@@ -1,23 +1,74 @@
-import { FiClock, FiSmartphone } from "react-icons/fi";
+import { FiSmartphone } from "react-icons/fi";
 import { GoPeople } from "react-icons/go";
+import { FaPerson } from "react-icons/fa6";
+import { CiMail } from "react-icons/ci";
 import { MdMiscellaneousServices } from "react-icons/md";
 import { PiBoundingBoxBold, PiBuildingOfficeBold } from "react-icons/pi";
 import { Avatar } from "antd";
 import { Employee } from "../types/employeeDataType";
 import { useSelector } from "react-redux";
 import { IoPerson } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 interface prop {
   myInfo?: Employee;
 }
 
 function ProfileData({ myInfo }: prop) {
+  const todayDate = new Date()
+  const joinDate = new Date(myInfo?.work?.dateofJoin || "")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  const navigate = useNavigate()
   const reportToInfo = useSelector(
     (state: { auth: { allEmployees: Employee[] } }) => state.auth.allEmployees
   )?.filter(
     (employee: Employee) =>
       employee.authInfo.email === myInfo?.work?.reportingTo
   )[0];
+
+  const getExperienceTime = () => {
+    const totalMonths =
+      (todayDate.getFullYear() - joinDate.getFullYear()) * 12 +
+      (todayDate.getMonth() - joinDate.getMonth());
+
+    const years = Math.floor(totalMonths / 12);
+    const months = totalMonths % 12;
+    const days = todayDate.getDate() - joinDate.getDate();
+
+    return `${years}years ${months}months ${days}days`;
+  }
+
 
   return (
     <div className="col-span-4 flex flex-wrap  lg:grid lg:grid-cols-4 gap-3 overflow-auto ">
@@ -27,8 +78,13 @@ function ProfileData({ myInfo }: prop) {
             About Me{" "}
             <div className="absolute rounded-full size-5 bg-blue-400 top-[3px] left-[-27px]"></div>
           </div>
-          <div className=" grid grid-cols-2 px-8 py-5 text-sm font-semibold text-gray-700">
+          <div className=" grid grid-cols-1 gap-3 sm:gap-0 sm:grid-cols-2 px-8 py-5 text-sm font-semibold text-gray-700">
             <div className=" flex flex-col  gap-4 ">
+              <div className="flex items-center gap-2">
+                <CiMail size={20} />
+                <div>{myInfo?.authInfo?.email || "-"}</div>
+              </div>
+
               <div className="flex items-center gap-2">
                 <MdMiscellaneousServices size={20} />
                 <div>{myInfo?.about?.service || "-"}</div>
@@ -37,12 +93,12 @@ function ProfileData({ myInfo }: prop) {
                 <FiSmartphone size={18} />
                 <div> {myInfo?.about?.phone || "-"}</div>
               </div>
-              <div className="flex items-center gap-2">
-                <FiClock size={18} />
-                <div>{myInfo?.about?.availability?.to || "-"}</div>
-              </div>
             </div>
             <div className=" flex flex-col gap-4 ">
+              <div className="flex items-center gap-2">
+                <FaPerson size={18} />
+                <div>{((myInfo?.basicInfo?.firstName) + " " + (myInfo?.basicInfo?.lastName || "")) || "-"}</div>
+              </div>
               <div className="flex items-center gap-2">
                 <GoPeople size={18} />
                 <div>{myInfo?.about?.role || "-"}</div>
@@ -78,18 +134,21 @@ function ProfileData({ myInfo }: prop) {
               <div className="">Reporting To</div>
               <div className=" ">Title</div>
               <div className=" ">Date of Join</div>
+              <div className=" ">Experience</div>
+
             </div>
             <div className=" flex flex-col  gap-4  ">
               <div className=" ">{myInfo?.work?.department || "-"}</div>
               <div className="">{myInfo?.work?.reportingTo || "-"}</div>
               <div className=" ">{myInfo?.work?.title || "-"}</div>
               <div className=" ">{myInfo?.work?.dateofJoin || "-"}</div>
+              <div className=" ">{(myInfo?.work?.dateofJoin && getExperienceTime()) || "-"}</div>
             </div>
           </div>
         </div>
       </div>
       <div className=" col-span-2 w-full flex flex-col gap-3">
-        <div className="border p-4 shadow-sm shadow-gray-200 overflow-hidden">
+        <div className="border p-4 shadow-sm shadow-gray-200 overflow-hidden cursor-pointer" onClick={() => navigate(`/employees/${myInfo?.work?.reportingTo}`)} >
           <div className="font-bold relative">
             Reports To
             <div className="absolute rounded-full size-5 bg-blue-400 top-[3px] left-[-27px]"></div>
@@ -156,7 +215,7 @@ function ProfileData({ myInfo }: prop) {
               <div className=" ">{myInfo?.personal?.mobileNo || "-"}</div>
               <div className="">{myInfo?.personal?.gender || "-"}</div>
               <div className="">{myInfo?.personal?.dob || "-"}</div>
-              <div className=" ">{myInfo?.personal?.marigeStatus || "-"}</div>
+              <div className=" ">{myInfo?.personal?.marriageStatus || "-"}</div>
               <div className=" ">{myInfo?.personal?.address || "-"}</div>
             </div>
           </div>

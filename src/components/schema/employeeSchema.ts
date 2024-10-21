@@ -1,45 +1,55 @@
 import { z } from "zod";
 
-export const schema = z.object({
+export const employeeSchema = z.object({
   authInfo: z.object({
-    id: z.string().min(1, { message: "Please enter employee ID" }),
+    id: z.string({ required_error: "Please enter employee ID" }),
     email: z
-      .string()
-      .min(1, { message: "Please enter email address" })
-
+      .string({ required_error: "Please enter email address" })
       .email({ message: "Please enter a valid email address" }),
     password: z
       .string()
       .min(6, { message: "Password must be at least 6 characters long" }),
   }),
   about: z.object({
-    role: z.string().min(1, { message: "Role is required" }),
-    service: z.string().min(1, { message: "Service is required" }),
-    phone: z.string(),
-    availability: z.object({
-      from: z.string().optional(),
-      to: z.string().optional(),
-    }),
-    office: z.string().min(1, { message: "Office is required" }),
+    role: z.string({ required_error: "Role is required" }),
+    service: z.string({ required_error: "Service is required" }),
+    phone: z
+      .string()
+      .optional()
+      .nullable()
+      .refine((val) => !val || /^[0-9]+$/.test(val), {
+        message: "Phone number must be a valid number",
+      }),
+    office: z.string({ required_error: "Office is required" }),
   }),
   basicInfo: z.object({
-    firstName: z.string().min(1, { message: "First name is required" }),
-    lastName: z.string().min(1, { message: "Last name is required" }),
+    firstName: z.string({ required_error: "First name is required" }),
+    lastName: z.string({ required_error: "Last name is required" }),
   }),
   work: z.object({
-    department: z.string().min(1, { message: "Department is required" }),
-    reportingTo: z.string().min(1, { message: "Reporting To is required" }),
-    title: z.string().min(1, { message: "Title is required" }),
-    dateofJoin: z.string(),
+    department: z.string({ required_error: "Department is required" }),
+    reportingTo: z.string({ required_error: "Reporting To is required" }),
+    title: z.string({ required_error: "Title is required" }),
+    dateofJoin: z.string().optional(),
   }),
   personal: z.object({
-    mobileNo: z.string(),
-    dob: z.string(),
-    gender: z.string().min(1, { message: "Gender is required" }),
-    marigeStatus: z.string(),
+    mobileNo: z
+      .string()
+      .optional()
+      .nullable()
+      .refine((val) => !val || /^[0-9]+$/.test(val), {
+        message: "Phone number must be a valid number",
+      }),
+    dob: z.string().optional(),
+    gender: z.string({ required_error: "Gender is required" }),
+    marriageStatus: z.string().optional(),
     address: z.string(),
   }),
-  profileImages: z.object({}).optional(),
+  profileImages: z
+    .object({
+      myImage: z.string().optional(),
+    })
+    .optional(),
 });
 
-export type SchemaType = z.infer<typeof schema>;
+export type SchemaType = z.infer<typeof employeeSchema>;

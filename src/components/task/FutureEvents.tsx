@@ -5,6 +5,7 @@ import { FaStar } from "react-icons/fa";
 import { FaHourglassStart } from "react-icons/fa";
 
 function FutureEvents() {
+  const todayDate = new Date()
   const hrEvents = useSelector(
     (state: { auth: { hrEvents: hrEventsType[] } }) => state.auth.hrEvents
   );
@@ -12,7 +13,7 @@ function FutureEvents() {
   const todayEvents = useSelector(
     (state: { auth: { todayEvents: TodayEventsType[] } }) =>
       state.auth.todayEvents
-  );
+  ).filter(event => event.date === `${todayDate.getDate()}-${todayDate.getMonth() + 1}-${todayDate.getFullYear()}`);
 
   return (
     <div className="h-full p-4  bg-gray-50  space-y-6 overflow-auto">

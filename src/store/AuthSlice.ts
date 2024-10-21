@@ -4,12 +4,17 @@ import {
   AttendanceType,
   Employee,
   hrEventsType,
+  LeadReportData,
   LeaveData,
+  PerformaceType,
   TaskDataType,
   TodayEventsType,
 } from "../components/types/employeeDataType";
 
 type InitialDataType = {
+  employeeFeeback: { email: string; date: Date }[];
+  leadReporters: LeadReportData[];
+  employeePerformance: PerformaceType[];
   attendanceList: AttendanceType[];
   todayEvents: TodayEventsType[];
   hrEvents: hrEventsType[];
@@ -21,6 +26,18 @@ type InitialDataType = {
 };
 
 const initialState: InitialDataType = {
+  employeeFeeback: [],
+  leadReporters: [
+    {
+      email: "admin@mail.com",
+      reportBy: ["admin@mail.com", "deepak@mail.com"],
+    },
+    {
+      email: "deepak@mail.com",
+      reportBy: ["deepak@mail.com"],
+    },
+  ],
+  employeePerformance: [],
   attendanceList: [],
   todayEvents: [],
   hrEvents: [],
@@ -41,10 +58,51 @@ export const authSlice = createSlice({
     logoutUser: (state) => {
       state.authUser = null;
     },
-    addEmployee: (state, actions) => {
+    addEmployee: (state, actions: { payload: Employee }) => {
+      const newLeadReportsData = state.leadReporters.map((item) => {
+        if (
+          item.email === actions?.payload?.work?.reportingTo &&
+          actions?.payload?.work?.reportingTo !== "admin@mail.com"
+        ) {
+          item.reportBy.push(actions?.payload?.authInfo?.email);
+        }
+        if (item.email === "admin@mail.com") {
+          item.reportBy.push(actions?.payload?.authInfo?.email);
+        }
+        return item;
+      });
+      const existLead = newLeadReportsData.filter(
+        (item) => item.email === actions?.payload?.work?.reportingTo
+      ).length;
+      if (existLead) {
+        state.leadReporters = newLeadReportsData;
+      } else {
+        state.leadReporters.push({
+          email: actions?.payload?.work?.reportingTo,
+          reportBy: [actions?.payload?.authInfo?.email],
+        });
+      }
+      state.leadReporters.push({
+        email: actions?.payload?.authInfo.email,
+        reportBy: [actions?.payload?.authInfo.email],
+      });
+
       state.allEmployees.push(actions.payload);
     },
-    deleteEmployee: (state, actions) => {
+    deleteEmployee: (state, actions: { payload: Employee }) => {
+      let newLeadReportsData = state.leadReporters.filter(
+        (item) => item.email !== actions.payload.authInfo.email
+      );
+
+      newLeadReportsData = newLeadReportsData.map((item) => {
+        const newReportBy = item.reportBy.filter(
+          (email) => email !== actions.payload.authInfo.email
+        );
+        item.reportBy = newReportBy;
+        return item;
+      });
+
+      state.leadReporters = newLeadReportsData;
       state.allEmployees = state.allEmployees.filter(
         (employee: Employee) =>
           employee.authInfo.email !== actions.payload.authInfo.email
@@ -72,17 +130,37 @@ export const authSlice = createSlice({
       state.attendanceList.push(actions.payload);
     },
     updateAttendance: (state, actions) => {
-      state.attendanceList=  state.attendanceList.map((item) =>
+      state.attendanceList = state.attendanceList.map((item) =>
         item.id === actions.payload.id && item.date === actions.payload.date
-          ? {checkIn:item.checkIn,...actions.payload}
+          ? { checkIn: item.checkIn, ...actions.payload }
           : item
       );
     },
     editProfile: (state, actions) => {
-      state.authUser = actions.payload;
+      let newLeadReportsData = state.leadReporters.map((item) => {
+        if (item.email !== "admin@mail.com") {
+          const newReportBy = item.reportBy.filter(
+            (email) => email !== actions.payload.authInfo.email
+          );
+          item.reportBy = newReportBy;
+        }
+        return item;
+      });
+
+      state.leadReporters = newLeadReportsData.map((item) => {
+        if (
+          item.email === actions?.payload?.work?.reportingTo &&
+          (actions?.payload?.work?.reportingTo !== "admin@mail.com" ||
+            item.email !== actions?.payload?.authInfo?.email)
+        ) {
+          item.reportBy.push(actions?.payload?.authInfo?.email);
+        }
+        return item;
+      });
+
       state.allEmployees = state.allEmployees.map((employeee: Employee) =>
-        employeee.authInfo.email === state.authUser?.authInfo.email
-          ? state.authUser
+        employeee.authInfo.email === actions.payload?.authInfo.email
+          ? actions.payload
           : employeee
       );
     },
@@ -113,6 +191,28 @@ export const authSlice = createSlice({
         }
       }
     },
+    addPerformance: (state, actions) => {
+      const newPerformance = state.employeePerformance?.map(
+        (item: PerformaceType) =>
+          item.email === actions.payload.email ? actions.payload : item
+      );
+      const exist = newPerformance.filter(
+        (item: PerformaceType) => item.email === actions.payload.email
+      ).length;
+
+      if (exist) {
+        state.employeePerformance = newPerformance;
+      } else {
+        state.employeePerformance.push(actions.payload);
+      }
+    },
+    updatePassword: (state, actions) => {
+      state.allEmployees = state.allEmployees.map((employee: Employee) =>
+        employee.authInfo.email === actions.payload?.authInfo?.email
+          ? actions.payload
+          : employee
+      );
+    },
   },
 });
 
@@ -131,6 +231,8 @@ export const {
   addHrEvent,
   addTodayEvent,
   addAttendance,
-  updateAttendance
+  updateAttendance,
+  addPerformance,
+  updatePassword,
 } = authSlice.actions;
 export default authSlice.reducer;

@@ -9,7 +9,7 @@ import { useEffect, useRef, useState } from "react";
 import { Employee } from "../types/employeeDataType";
 import { editImage } from "../../store/AuthSlice";
 import LoadingPage from "../loading/LoadingPage";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function MyProfile() {
   const navigate = useNavigate();

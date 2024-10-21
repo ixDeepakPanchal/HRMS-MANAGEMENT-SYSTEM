@@ -2,25 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-
-.background-bg {
-  background-image: url("./assets/moon-cloud.jpg");
-  background-size: 100vw 192px
-}
-
-@keyframes rotate360 {
-  0% {
-    transform: rotate(0deg) translateX(30px);
-  }
-
-  100% {
-    transform: rotate(360deg) translateX(30px);
-  }
-}
-
 html,
 body {
   overflow: hidden;
   padding: 0px;
   margin: 0px;
+}
+
+.background-bg {
+  background-image: url("./assets/moon-cloud.jpg");
+  background-size: 100vw 192px;
+  background-repeat: no-repeat;
 }

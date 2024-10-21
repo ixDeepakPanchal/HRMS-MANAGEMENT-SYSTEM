@@ -122,6 +122,7 @@ const AddEmployeeForm = () => {
                         !!editId || myInfo.authInfo.email !== "admin@mail.com"
                       }
                       {...field}
+                      value={field.value || ""}
                       className="w-full  p-2 border border-gray-300 rounded h-8 focus:outline-none focus:ring-blue-500 focus:border-blue-500 "
                       placeholder="Enter employee ID"
                     />
@@ -149,6 +150,7 @@ const AddEmployeeForm = () => {
                         !!editId || myInfo.authInfo.email !== "admin@mail.com"
                       }
                       {...field}
+                      value={field.value || ""}
                       className="w-full p-2 border border-gray-300 rounded h-8 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                       placeholder="Enter email address"
                     />
@@ -277,6 +279,7 @@ const AddEmployeeForm = () => {
                   <input
                     disabled={true}
                     {...field}
+                    value={field.value || ""}
                     className="w-full p-2 border border-gray-300 rounded h-8 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                   />
                 )}
@@ -323,6 +326,7 @@ const AddEmployeeForm = () => {
                   <input
                     disabled={true}
                     {...field}
+                    value={field.value || ""}
                     className="w-full p-2 border border-gray-300 rounded h-8 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
                   />
                 )}

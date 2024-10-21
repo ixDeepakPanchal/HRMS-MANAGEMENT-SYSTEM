@@ -7,12 +7,9 @@ import { Employee } from "../types/employeeDataType";
 import { Input } from "antd";
 import { useState } from "react";
 
-type LoginForm = {
-  email: string;
-  password: string;
-};
 
-type ResetPassword = {
+
+type LoginType = {
   email: string;
   password: string;
   confirmPassword?: string;
@@ -27,13 +24,13 @@ function LoginPage() {
   );
 
 
-  const { handleSubmit, control, formState: { errors }, watch, reset } = useForm<ResetPassword>({ mode: "all" });
+  const { handleSubmit, control, formState: { errors }, watch, reset } = useForm<LoginType>({ mode: "all" });
 
   const emailValue = watch("email")
   const passwordValue = watch("password")
 
 
-  const onSubmit = (data: ResetPassword) => {
+  const onSubmit = (data: LoginType) => {
 
     const user = allUsers.filter(
       (user: Employee) => user?.authInfo?.email === data.email

@@ -8,7 +8,7 @@ function SideRoute() {
       <Navbar />
       <div className="min-h-[90vh] flex ">
         <Sidebar />
-        <div className="grow shadow-lg shadow-gray-400  bg-white   overflow-auto">
+        <div className="grow shadow-lg shadow-gray-400  bg-white overflow-auto w-full">
           <Outlet />
         </div>
       </div>

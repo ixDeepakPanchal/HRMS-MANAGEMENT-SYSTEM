@@ -57,7 +57,7 @@ function EmployeesDetail() {
   return loading ? (
     <LoadingPage />
   ) : (
-    <div className="p-5 flex flex-col gap-3  bg-gray-50 ">
+    <div className="p-5">
       <div className="">
         <ShowModel
           title={

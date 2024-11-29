@@ -86,13 +86,13 @@ function LeaveProfile() {
     },
   ];
   return (
-    <div className="border  h-full px-10 py-6 flex flex-col gap-3 bg-gray-50 overflow-auto">
+    <div className="h-full px-10 py-6 flex flex-col gap-3 bg-gray-50 overflow-auto">
       <div className="flex flex-wrap justify-around gap-2">
         {leaveType?.map((leaveTypeData: LeaveTypeData, index: number) => (
           <LeaveType key={index} leaveTypeData={leaveTypeData} />
         ))}
       </div>
-      <div className="border h-[800px] rounded-lg shadow-lg bg-white ">
+      <div className="border h-[700px] rounded-lg  bg-white ">
         <LeaveApplication myInfo={myInfo}></LeaveApplication>
       </div>
     </div>

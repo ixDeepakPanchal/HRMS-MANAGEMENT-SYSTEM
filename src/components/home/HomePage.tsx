@@ -44,7 +44,7 @@ const HomePage = () => {
   };
 
   return (
-    <div className="flex flex-col gap-8 p-5 bg-gray-50 ">
+    <div className="flex flex-col gap-8 p-5 bg-gray-50 h-full">
       <div className="text-3xl font-semibold text-gray-800 flex justify-between items-center">
         Hi {myInfo.basicInfo?.firstName || "User"}!{" "}
         <span

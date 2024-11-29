@@ -120,7 +120,7 @@ function MyProfile() {
         onChange={(e) => handleImageUpload(e)}
       />
 
-      <div className="  h-[400px] grid grid-cols-4 gap-3 p-3">
+      <div className=" grid grid-cols-4 gap-3 p-3">
         <ProfileData myInfo={myInfo}></ProfileData>
       </div>
     </div>

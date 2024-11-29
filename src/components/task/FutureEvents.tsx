@@ -16,8 +16,8 @@ function FutureEvents() {
   ).filter(event => event.date === `${todayDate.getDate()}-${todayDate.getMonth() + 1}-${todayDate.getFullYear()}`);
 
   return (
-    <div className="h-full p-4  bg-gray-50  space-y-6 overflow-auto">
-      <div className="bg-white p-4 rounded-lg shadow-md overflow-auto h-[250px]">
+    <div className="h-full grid grid-cols-1  p-4  bg-gray-50  space-y-6 overflow-auto">
+      <div className="bg-white p-4 rounded-lg shadow-md overflow-auto ">
         <h2 className="text-2xl font-bold text-gray-700 mb-4 flex items-center gap-2 ">
           Today's Events <FaStar className="text-yellow-400" />
         </h2>
@@ -44,7 +44,7 @@ function FutureEvents() {
         )}
       </div>
 
-      <div className="bg-white p-4 rounded-lg shadow-md overflow-auto h-[250px]">
+      <div className="bg-white p-4 rounded-lg shadow-md overflow-auto">
         <h2 className="text-2xl font-bold text-gray-700 mb-4 flex items-center gap-2">
           Upcoming HR Events
           <FaHourglassStart className="text-blue-500" />

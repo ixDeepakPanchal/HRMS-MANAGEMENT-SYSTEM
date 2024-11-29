@@ -78,7 +78,7 @@ function Sidebar() {
     });
   }
   return (
-    <div className="min-w-[48px] md:min-w-16 bg-blue-200 grid grid-cols-1 ">
+    <div className="min-w-[48px] md:min-w-16 bg-blue-200 grid grid-cols-1 grow">
       <ShowModel
         title={<div className="text-gray-800 font-bold text-xl">Log Out !</div>}
         modelContent={

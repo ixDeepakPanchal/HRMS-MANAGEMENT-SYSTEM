@@ -4,11 +4,11 @@ import Navbar from "./Navbar";
 
 function SideRoute() {
   return (
-    <div className="flex flex-col h-screen ">
+    <div className="flex flex-col min-h-[100svh] ">
       <Navbar />
-      <div className="min-h-[90vh] flex ">
+      <div className="h-[100svh] flex pt-[4rem]">
         <Sidebar />
-        <div className="grow shadow-lg shadow-gray-400  bg-white overflow-auto w-full">
+        <div className="grow shadow-lg shadow-gray-400  bg-white  w-full overflow-auto">
           <Outlet />
         </div>
       </div>

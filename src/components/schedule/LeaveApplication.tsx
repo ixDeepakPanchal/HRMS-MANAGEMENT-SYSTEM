@@ -30,8 +30,8 @@ function LeaveApplication({ myInfo }: prop) {
   };
 
   return (
-    <div className="bg-white  rounded-lg p-6 mt-4 w-full">
-      <form onSubmit={handleSubmit(onsubmit)}>
+    <div className="bg-white rounded-lg p-6  w-full h-full ">
+      <div >
         <h2 className="text-xl font-semibold mb-4">Leave Application</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
           <div className="flex flex-col">
@@ -96,11 +96,12 @@ function LeaveApplication({ myInfo }: prop) {
           <button
             type="submit"
             className="bg-blue-500 text-white px-6 py-2 rounded-md shadow-md hover:bg-blue-600 transition-all"
+            onClick={handleSubmit(onsubmit)}
           >
             Add Leave
           </button>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

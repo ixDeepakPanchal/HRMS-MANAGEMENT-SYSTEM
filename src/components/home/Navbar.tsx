@@ -42,7 +42,7 @@ function Navbar() {
   })
 
   return (
-    <div className="h-[4rem]  bg-gray-800 shadow-sm shadow-gray-100 flex py-3 justify-between z-10">
+    <div className="h-[4rem]  bg-gray-800 shadow-sm shadow-gray-100 flex py-3 justify-between z-10 absolute inset-x-0">
       <div className="flex w-full ">
         <div className="h-full  object-fill border-gray-600 px-3 flex justify-center items-center">
           <img className="w-[12rem]" src={logo} alt="logo" onClick={() => navigate("/home")} />

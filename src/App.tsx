@@ -1,11 +1,13 @@
 import { Toaster } from "react-hot-toast";
 import { useSelector } from "react-redux";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Employee } from "./components/types/employeeDataType";
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import LoadingPage from "./components/loading/LoadingPage";
 import AddEmployeeForm from "./components/edit/AddEmployeeForm";
 import HrEventForm from "./components/edit/HrEventForm";
+import MainBg from "./components/parentCommon/MainBg";
+
 
 const NotFoundPage = lazy(() => import("./components/errorPages/NotFoundPage"));
 const EmployeeProfile = lazy(
@@ -27,16 +29,24 @@ const EmployeesDetail = lazy(
 );
 const SideRoute = lazy(() => import("./components/home/SideRoute"));
 const LoginPage = lazy(() => import("./components/login/LoginPage"));
+const SignUp = lazy(() => import("./components/login/EmployeeSignUp"));
 const AdminPage = lazy(() => import("./components/home/AdminPage"));
 const HomePage = lazy(() => import("./components/home/HomePage"));
 
 function App() {
   const navigate = useNavigate();
+   const location = useLocation();
   const authUser = useSelector(
     (state: { auth: { authUser: Employee } }) => state.auth.authUser
   );
 
   const isAdmin = authUser?.authInfo.email === "admin@mail.com";
+
+  useEffect(() => {
+    if (!authUser?.authInfo?.email && location.pathname !== "/signup") {
+      navigate("/");
+    }
+  }, [authUser, navigate]);
 
   const routes = [
     { path: "/home", element: isAdmin ? <AdminPage /> : <HomePage /> },
@@ -95,15 +105,31 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={authUser ? <Navigate to={"/home"} /> : <LoginPage />}
+            element={
+              authUser ? (
+                <Navigate to={"/home"} />
+              ) : (
+                <MainBg>
+                  <LoginPage />
+                </MainBg>
+              )
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              authUser ? (
+                <Navigate to={"/home"} />
+              ) : (
+                <MainBg>
+                  <SignUp />
+                </MainBg>
+              )
+            }
           />
           <Route element={<SideRoute />}>
             {routes?.map((items, index) => {
               if (items.hide) return null;
-              if (!authUser?.authInfo?.email) {
-                navigate("/");
-                return null;
-              }
               return (
                 <Route
                   key={index}

@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { customData } from "./data";
+import { v4 as uuidv4 } from "uuid";
 import {
   AttendanceType,
   Employee,
@@ -59,9 +60,10 @@ export const authSlice = createSlice({
       state.authUser = null;
     },
     addEmployee: (state, actions: { payload: Employee }) => {
+      actions.payload.authInfo.id = `Emp-${uuidv4().slice(0, 6)}`;
       const newLeadReportsData = state.leadReporters.map((item) => {
         if (
-          item.email === actions?.payload?.work?.reportingTo &&
+          item?.email === actions?.payload?.work?.reportingTo &&
           actions?.payload?.work?.reportingTo !== "admin@mail.com"
         ) {
           item.reportBy.push(actions?.payload?.authInfo?.email);
@@ -72,7 +74,7 @@ export const authSlice = createSlice({
         return item;
       });
       const existLead = newLeadReportsData.filter(
-        (item) => item.email === actions?.payload?.work?.reportingTo
+        (item) => item?.email === actions?.payload?.work?.reportingTo
       ).length;
       if (existLead) {
         state.leadReporters = newLeadReportsData;

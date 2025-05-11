@@ -479,6 +479,11 @@ const AddEmployeeForm = () => {
     },
   ];
 
+  const onError =(err:any)=>{
+    console.log(err)
+
+  }
+
   return (
     <div className="bg-gray-50 h-full overflow-auto p-5">
       <div className="bg-white  rounded-lg shadow-md max-w-3xl mx-auto p-6 relative">
@@ -500,7 +505,7 @@ const AddEmployeeForm = () => {
         <h2 className="text-2xl font-bold mb-4 text-center">
           {!!editId ? "Edit" : "Add"} Employee Details
         </h2>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit,onError)}>
           <Collapse
 
             defaultActiveKey={!!id ? [1, 2, 3, 4, 5] : 1}

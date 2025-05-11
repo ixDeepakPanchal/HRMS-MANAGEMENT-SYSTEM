@@ -3,6 +3,7 @@ import { Employee } from "../types/employeeDataType";
 import { useDispatch } from "react-redux";
 import { addLeave } from "../../store/AuthSlice";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 type LeaveFormType = {
   type: string;
   title: string;
@@ -13,6 +14,7 @@ interface prop {
 }
 
 function LeaveApplication({ myInfo }: prop) {
+  const navigate = useNavigate();
   const { register, handleSubmit, reset, formState: { errors } } = useForm<LeaveFormType>({
     mode: "all"
   });
@@ -26,6 +28,7 @@ function LeaveApplication({ myInfo }: prop) {
     };
     dispatch(addLeave(leave));
     toast.success("Leave Apply Successfully");
+    navigate("/leavetrack")
     reset();
   };
 

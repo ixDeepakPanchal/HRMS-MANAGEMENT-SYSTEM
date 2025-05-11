@@ -20,7 +20,7 @@ function Navbar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const option = allEmployees.map((employeeData: Employee) => {
+  const option = allEmployees?.map((employeeData: Employee) => {
     return {
       label: <div className="flex items-center gap-2"> <Avatar
         className="size-[3rem] rounded-full border border-white"
@@ -28,7 +28,7 @@ function Navbar() {
           <>
             {employeeData?.profileImages?.myImage ? (
               <img
-                src={`${myInfo.profileImages.myImage}`}
+                src={`${myInfo?.profileImages?.myImage}`}
                 alt="Uploaded"
                 loading="lazy"
               />
@@ -37,7 +37,7 @@ function Navbar() {
             )}
           </>
         }
-      />{employeeData.authInfo?.email}</div>, value: employeeData.authInfo.email
+      />{employeeData?.authInfo?.email}</div>, value: employeeData?.authInfo?.email
     }
   })
 
@@ -92,9 +92,9 @@ function Navbar() {
             className="size-[3rem] rounded-full border border-white"
             icon={
               <>
-                {myInfo.profileImages?.myImage ? (
+                {myInfo?.profileImages?.myImage ? (
                   <img
-                    src={`${myInfo.profileImages.myImage}`}
+                    src={`${myInfo?.profileImages?.myImage}`}
                     alt="Uploaded"
                     loading="lazy"
                   />

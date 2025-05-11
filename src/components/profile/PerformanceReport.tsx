@@ -66,7 +66,7 @@ function PerformanceReport() {
     <div className="h-full mx-auto p-8 bg-white shadow-md rounded-lg space-y-6 overflow-auto">
       <form onSubmit={handleSubmit(onsubmit)}>
         {/* Main Heading */}
-        <h2 className="text-2xl font-bold mb-6  text-center">
+        <h2 className=" sm:text-2xl  font-bold mb-6  flex justify-center text-center">
           <span className="border py-2 px-4 rounded-lg bg-blue-500 text-white">
             Employee Progress Report
           </span>

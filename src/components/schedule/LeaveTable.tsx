@@ -39,10 +39,10 @@ function LeaveTable({ leaveData, myInfo, allEmployees }: prop) {
       (employee: Employee) => leaveMail === employee.authInfo.email
     )[0];
 
-    if (user.profileImages.myImage) {
+    if (user?.profileImages?.myImage) {
       return (
         <img
-          src={`${user.profileImages.myImage}`}
+          src={`${user?.profileImages?.myImage}`}
           alt="Uploaded"
           loading="lazy"
         />

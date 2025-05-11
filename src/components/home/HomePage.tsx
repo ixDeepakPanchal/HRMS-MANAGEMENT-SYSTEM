@@ -20,14 +20,14 @@ const HomePage = () => {
   );
 
   const taskData = useSelector(
-    (state: { auth: { taskData: TaskDataType[] } }) => state.auth.taskData
-  ).filter((task) => task.assignTo === myInfo.authInfo.email);
+    (state: { auth: { taskData: TaskDataType[] } }) => state?.auth?.taskData
+  ).filter((task) => task.assignTo === myInfo?.authInfo?.email);
 
   const leaveData = useSelector(
-    (state: { auth: { leaveData: LeaveData[] } }) => state.auth.leaveData
+    (state: { auth: { leaveData: LeaveData[] } }) => state?.auth?.leaveData
   ).filter(
     (leave: LeaveData) =>
-      leave.email === myInfo.authInfo.email && leave.status === "approved"
+      leave?.email === myInfo?.authInfo?.email && leave?.status === "approved"
   );
 
   const completedTasks = taskData.filter((task) => task.isCompleted).length;
@@ -46,7 +46,7 @@ const HomePage = () => {
   return (
     <div className="flex flex-col gap-8 p-5 bg-gray-50 h-full">
       <div className="text-3xl font-semibold text-gray-800 flex justify-between items-center">
-        Hi {myInfo.basicInfo?.firstName || "User"}!{" "}
+        Hi {myInfo?.basicInfo?.firstName || "User"}!{" "}
         <span
           className="border bg-blue-400 rounded-md text-white text-base p-2 flex gap-2 items-center hover:cursor-pointer"
           onClick={() => navigate("/home/calendar")}
@@ -75,7 +75,7 @@ const HomePage = () => {
               <FaTasks size={26} className="text-blue-500 " />
             </div>
             <div className="text-3xl text-blue-600 font-bold">
-              {taskData.length ? `${taskData.length} Tasks` : "0 Task"}
+              {taskData?.length ? `${taskData?.length} Tasks` : "0 Task"}
             </div>
           </div>
         </div>
@@ -112,7 +112,7 @@ const HomePage = () => {
           {taskData?.length ? (
             <Steps
               direction="vertical"
-              current={taskData.length} // or use a condition to show current steps
+              current={taskData?.length} // or use a condition to show current steps
               className="custom-steps"
             >
               {taskData.map((event: TaskDataType, index: number) => (

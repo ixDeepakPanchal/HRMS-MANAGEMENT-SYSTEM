@@ -39,7 +39,7 @@ export const customData: Employee[] = [
     },
     about: {
       role: "software engineer",
-      service: "middleware",
+      service: "middleware", 
       phone: 7297095896,
       office: "Hydrabad",
     },
